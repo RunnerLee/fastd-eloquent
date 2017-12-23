@@ -25,11 +25,11 @@ class EloquentServiceProvider implements ServiceProviderInterface
 
         $manager->getDatabaseManager()->setDefaultConnection('default');
 
-        $this->registerConnections($manager);
+        $this->registerConnections($manager, $container);
 
         $manager->bootEloquent();
 
-        $this->registerPageAndPathResolver();
+        $this->registerPageAndPathResolver($container);
 
         $container->add('eloquent', $container);
     }
