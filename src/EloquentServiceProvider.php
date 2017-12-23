@@ -14,9 +14,9 @@ use Illuminate\Pagination\Paginator;
 
 class EloquentServiceProvider implements ServiceProviderInterface
 {
-
     /**
      * @param Container $container
+     *
      * @return mixed
      */
     public function register(Container $container)
