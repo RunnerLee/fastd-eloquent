@@ -1,6 +1,6 @@
 {
     "name": "runner/fastd-eloquent",
-    "description": "seeder for fastd framework",
+    "description": "eloquent for FastD framework",
     "type": "library",
     "license": "GPL-3.0",
     "authors": [
