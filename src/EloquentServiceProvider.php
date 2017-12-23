@@ -61,7 +61,7 @@ class EloquentServiceProvider implements ServiceProviderInterface
             return $container->get('request')->getParam($pageName, 1);
         });
         Paginator::currentPathResolver(function () use ($container) {
-            return $container->get('request')->getUri()->getPath();
+            return $container->get('request')->getUri();
         });
     }
 }
