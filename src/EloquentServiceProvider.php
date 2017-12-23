@@ -55,13 +55,13 @@ class EloquentServiceProvider implements ServiceProviderInterface
         }
     }
 
-    protected function registerPageAndPathResolver()
+    protected function registerPageAndPathResolver(Container $container)
     {
-        Paginator::currentPageResolver(function ($pageName) {
-            return request()->getParam($pageName, 1);
+        Paginator::currentPageResolver(function ($pageName) use ($container) {
+            return $container->get('request')->getParam($pageName, 1);
         });
-        Paginator::currentPathResolver(function () {
-            return request()->getUri()->getPath();
+        Paginator::currentPathResolver(function () use ($container) {
+            return $container->get('request')->getUri()->getPath();
         });
     }
 }
