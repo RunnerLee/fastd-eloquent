@@ -37,9 +37,9 @@ class EloquentServiceProvider implements ServiceProviderInterface
     /**
      * @param Manager $manager
      */
-    protected function registerConnections(Manager $manager)
+    protected function registerConnections(Manager $manager, Container $container)
     {
-        foreach (config()->get('database', []) as $name => $config) {
+        foreach ($container->get('config')->get('database', []) as $name => $config) {
             $manager->addConnection(
                 [
                     'driver'    => 'mysql',
