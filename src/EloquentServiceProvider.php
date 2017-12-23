@@ -44,7 +44,7 @@ class EloquentServiceProvider implements ServiceProviderInterface
                 [
                     'driver'    => 'mysql',
                     'host'      => $config['host'],
-                    'port'      => $config['host'],
+                    'port'      => $config['port'],
                     'database'  => $config['name'],
                     'username'  => $config['user'],
                     'password'  => $config['pass'],
