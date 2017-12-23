@@ -1,0 +1,67 @@
+<?php
+/**
+ * @author: RunnerLee
+ * @email: runnerleer@gmail.com
+ * @time: 2017-12
+ */
+
+namespace Runner\FastdEloquent;
+
+use FastD\Container\Container;
+use FastD\Container\ServiceProviderInterface;
+use Illuminate\Database\Capsule\Manager;
+use Illuminate\Pagination\Paginator;
+
+class EloquentServiceProvider implements ServiceProviderInterface
+{
+
+    /**
+     * @param Container $container
+     * @return mixed
+     */
+    public function register(Container $container)
+    {
+        $manager = new Manager();
+
+        $manager->getDatabaseManager()->setDefaultConnection('default');
+
+        $this->registerConnections($manager);
+
+        $manager->bootEloquent();
+
+        $this->registerPageAndPathResolver();
+
+        $container->add('eloquent', $container);
+    }
+
+    /**
+     * @param Manager $manager
+     */
+    protected function registerConnections(Manager $manager)
+    {
+        foreach (config()->get('database', []) as $name => $config) {
+            $manager->addConnection(
+                [
+                    'driver'    => 'mysql',
+                    'host'      => $config['host'],
+                    'port'      => $config['host'],
+                    'database'  => $config['name'],
+                    'username'  => $config['user'],
+                    'password'  => $config['pass'],
+                    'charset'   => $config['charset'],
+                ],
+                $name
+            );
+        }
+    }
+
+    protected function registerPageAndPathResolver()
+    {
+        Paginator::currentPageResolver(function ($pageName) {
+            return request()->getParam($pageName, 1);
+        });
+        Paginator::currentPathResolver(function () {
+            return request()->getUri()->getPath();
+        });
+    }
+}

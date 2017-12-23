@@ -1,0 +1,25 @@
+{
+    "name": "runner/fastd-eloquent",
+    "description": "",
+    "type": "library",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "RunnerLee",
+            "email": "runnerleer@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/database": "^5.5",
+        "fastd/fastd": "^3.1",
+        "illuminate/pagination": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Runner\\FastdEloquent\\": "src"
+        },
+        "files": [
+            "src/helper.php"
+        ]
+    }
+}
