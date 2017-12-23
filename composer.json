@@ -1,6 +1,6 @@
 {
     "name": "runner/fastd-eloquent",
-    "description": "",
+    "description": "seeder for fastd framework",
     "type": "library",
     "license": "GPL-3.0",
     "authors": [
@@ -11,7 +11,7 @@
     ],
     "require": {
         "illuminate/database": "^5.5",
-        "fastd/fastd": "^3.1",
+        "fastd/fastd": "^3.1@dev",
         "illuminate/pagination": "^5.5"
     },
     "autoload": {
