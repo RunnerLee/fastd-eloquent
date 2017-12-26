@@ -12,7 +12,8 @@
     "require": {
         "illuminate/database": "^5.5",
         "illuminate/pagination": "^5.5",
-        "fastd/container": "~3.0"
+        "fastd/container": "~3.0",
+        "fastd/http": "~3.0"
     },
     "autoload": {
         "psr-4": {
