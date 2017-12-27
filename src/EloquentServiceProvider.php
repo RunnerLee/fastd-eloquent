@@ -31,7 +31,7 @@ class EloquentServiceProvider implements ServiceProviderInterface
 
         $this->registerPageAndPathResolver($container);
 
-        $container->add('eloquent', $container);
+        $container->add('eloquent', $manager);
     }
 
     /**
