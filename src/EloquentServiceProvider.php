@@ -32,6 +32,8 @@ class EloquentServiceProvider implements ServiceProviderInterface
         $this->registerPageAndPathResolver($container);
 
         $container->add('eloquent', $manager);
+
+        $container->get('dispatcher')->after(new EloquentMiddleware());
     }
 
     /**
