@@ -2,3 +2,4 @@
 .idea
 composer.lock
 *orig
+.php_cs.cache

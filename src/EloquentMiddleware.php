@@ -16,16 +16,16 @@ use Exception;
 
 class EloquentMiddleware extends Middleware
 {
-
     /**
      * @param ServerRequestInterface $request
-     * @param DelegateInterface $next
+     * @param DelegateInterface      $next
+     *
      * @return Response|\Psr\Http\Message\ResponseInterface
+     *
      * @throws Exception
      */
     public function handle(ServerRequestInterface $request, DelegateInterface $next)
     {
-
         try {
             return $next->process($request);
         } catch (ModelNotFoundException $exception) {

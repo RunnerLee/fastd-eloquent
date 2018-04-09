@@ -2,7 +2,7 @@
     "name": "runner/fastd-eloquent",
     "description": "eloquent for FastD framework",
     "type": "library",
-    "license": "GPL-3.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "RunnerLee",
