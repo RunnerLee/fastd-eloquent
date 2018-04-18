@@ -8,11 +8,13 @@
 namespace Runner\FastdEloquent;
 
 use Exception;
+use FastD\Http\JsonResponse;
+use FastD\Http\Response;
 use FastD\Middleware\DelegateInterface;
 use FastD\Middleware\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Illuminate\Database\Eloquent\ModelNotFoundException as IlluminateModelNotFoundException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class EloquentMiddleware extends Middleware
 {
@@ -28,8 +30,11 @@ class EloquentMiddleware extends Middleware
     {
         try {
             return $next->process($request);
-        } catch (IlluminateModelNotFoundException $exception) {
-            throw new ModelNotFoundException($exception);
+        } catch (ModelNotFoundException $exception) {
+            return new JsonResponse(
+                call_user_func(config()->get('exception.response'), $exception),
+                Response::HTTP_NOT_FOUND
+            );
         } catch (Exception $exception) {
             throw $exception;
         }
