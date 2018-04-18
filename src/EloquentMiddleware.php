@@ -31,10 +31,13 @@ class EloquentMiddleware extends Middleware
         try {
             return $next->process($request);
         } catch (ModelNotFoundException $exception) {
-            return new JsonResponse(
-                call_user_func(config()->get('exception.response'), $exception),
-                Response::HTTP_NOT_FOUND
-            );
+            $response = call_user_func(config()->get('exception.response'), $exception);
+
+            if (is_object($response) && $response instanceof Response) {
+                return $response;
+            }
+
+            return new JsonResponse($response, Response::HTTP_NOT_FOUND);
         } catch (Exception $exception) {
             throw $exception;
         }
