@@ -14,7 +14,7 @@ use FastD\Middleware\DelegateInterface;
 use FastD\Middleware\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\ModelNotFoundException as IlluminateModelNotFoundException;
 
 class EloquentMiddleware extends Middleware
 {
@@ -30,8 +30,8 @@ class EloquentMiddleware extends Middleware
     {
         try {
             return $next->process($request);
-        } catch (ModelNotFoundException $exception) {
-            $response = call_user_func(config()->get('exception.response'), $exception);
+        } catch (IlluminateModelNotFoundException $exception) {
+            $response = call_user_func(config()->get('exception.response'), new ModelNotFoundException($exception));
 
             if (is_object($response) && $response instanceof Response) {
                 return $response;
