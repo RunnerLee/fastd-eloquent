@@ -44,13 +44,13 @@ class EloquentServiceProvider implements ServiceProviderInterface
         foreach ($container->get('config')->get('database', []) as $name => $config) {
             $manager->addConnection(
                 [
-                    'driver'   => 'mysql',
-                    'host'     => $config['host'],
-                    'port'     => $config['port'],
+                    'driver' => 'mysql',
+                    'host' => $config['host'],
+                    'port' => $config['port'],
                     'database' => $config['name'],
                     'username' => $config['user'],
                     'password' => $config['pass'],
-                    'charset'  => $config['charset'],
+                    'charset' => $config['charset'],
                 ],
                 $name
             );

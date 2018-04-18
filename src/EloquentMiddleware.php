@@ -16,11 +16,12 @@ use Illuminate\Database\Eloquent\ModelNotFoundException as IlluminateModelNotFou
 
 class EloquentMiddleware extends Middleware
 {
-
     /**
      * @param ServerRequestInterface $request
-     * @param DelegateInterface $next
+     * @param DelegateInterface      $next
+     *
      * @return ResponseInterface
+     *
      * @throws Exception
      */
     public function handle(ServerRequestInterface $request, DelegateInterface $next)
