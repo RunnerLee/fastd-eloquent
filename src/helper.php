@@ -33,3 +33,30 @@ if (!function_exists('eloquent')) {
         return new JsonResponse($resource->toArray(), $statusCode);
     }
 }
+
+if (!function_exists('per_page')) {
+    /**
+     * @param string $name
+     * @param int    $default
+     *
+     * @return int
+     */
+    function per_page($name = 'per_page', $default = 15)
+    {
+        $perPage = intval(request()->getQueryParams()[$name] ?? $default);
+
+        $perPage < 0 && $perPage = 15;
+
+        return $perPage;
+    }
+}
+
+if (!function_exists('event')) {
+    /**
+     * @return \Illuminate\Events\Dispatcher
+     */
+    function event()
+    {
+        return app()->get('event');
+    }
+}

@@ -21,9 +21,17 @@ class EloquentServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
-        $manager = new Manager();
+        $this->registerEloquent($container);
 
-        $manager->getDatabaseManager()->setDefaultConnection('default');
+        $this->registerMiddleware($container);
+    }
+
+    /**
+     * @param Container $container
+     */
+    protected function registerEloquent(Container $container)
+    {
+        $manager = new Manager();
 
         $this->registerConnections($manager, $container);
 
@@ -32,15 +40,24 @@ class EloquentServiceProvider implements ServiceProviderInterface
         $this->registerPageAndPathResolver($container);
 
         $container->add('eloquent', $manager);
+    }
 
+    /**
+     * @param Container $container
+     */
+    protected function registerMiddleware(Container $container)
+    {
         $container->get('dispatcher')->after(new EloquentMiddleware());
     }
 
     /**
-     * @param Manager $manager
+     * @param Manager   $manager
+     * @param Container $container
      */
     protected function registerConnections(Manager $manager, Container $container)
     {
+        $manager->getDatabaseManager()->setDefaultConnection('default');
+
         foreach ($container->get('config')->get('database', []) as $name => $config) {
             $manager->addConnection(
                 [
@@ -57,6 +74,9 @@ class EloquentServiceProvider implements ServiceProviderInterface
         }
     }
 
+    /**
+     * @param Container $container
+     */
     protected function registerPageAndPathResolver(Container $container)
     {
         Paginator::currentPageResolver(function ($pageName) use ($container) {

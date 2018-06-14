@@ -38,8 +38,6 @@ class EloquentMiddleware extends Middleware
             }
 
             return new JsonResponse($response, Response::HTTP_NOT_FOUND);
-        } catch (Exception $exception) {
-            throw $exception;
         }
     }
 }
