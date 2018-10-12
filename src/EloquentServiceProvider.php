@@ -31,13 +31,11 @@ class EloquentServiceProvider implements ServiceProviderInterface
      */
     protected function registerEloquent(Container $container)
     {
-        $manager = new Manager();
-
-        $this->registerConnections($manager, $container);
+        $this->registerConnections($manager = new Manager());
 
         $manager->bootEloquent();
 
-        $this->registerPageAndPathResolver($container);
+        $this->registerPageAndPathResolver();
 
         $container->add('eloquent', $manager);
     }
@@ -51,14 +49,13 @@ class EloquentServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Manager   $manager
-     * @param Container $container
+     * @param Manager $manager
      */
-    protected function registerConnections(Manager $manager, Container $container)
+    protected function registerConnections(Manager $manager)
     {
         $manager->getDatabaseManager()->setDefaultConnection('default');
 
-        foreach ($container->get('config')->get('database', []) as $name => $config) {
+        foreach (config()->get('database', []) as $name => $config) {
             $manager->addConnection(
                 [
                     'driver' => 'mysql',
@@ -74,16 +71,13 @@ class EloquentServiceProvider implements ServiceProviderInterface
         }
     }
 
-    /**
-     * @param Container $container
-     */
-    protected function registerPageAndPathResolver(Container $container)
+    protected function registerPageAndPathResolver()
     {
-        Paginator::currentPageResolver(function ($pageName) use ($container) {
-            return $container->get('request')->getParam($pageName, 1);
+        Paginator::currentPageResolver(function ($pageName) {
+            return request()->getParam($pageName, 1);
         });
-        Paginator::currentPathResolver(function () use ($container) {
-            return $container->get('request')->getUri();
+        Paginator::currentPathResolver(function () {
+            return (string) request()->getUri();
         });
     }
 }
