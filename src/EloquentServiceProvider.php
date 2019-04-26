@@ -65,6 +65,7 @@ class EloquentServiceProvider implements ServiceProviderInterface
                     'username' => $config['user'],
                     'password' => $config['pass'],
                     'charset' => $config['charset'],
+                    'prefix' => $config['prefix'] ?? '',
                 ],
                 $name
             );
