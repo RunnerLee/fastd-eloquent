@@ -9,14 +9,12 @@ namespace Runner\FastdEloquent;
 
 use FastD\Container\Container;
 use FastD\Container\ServiceProviderInterface;
-use Illuminate\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Events\Dispatcher;
 
 class EventServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @param Container $container
-     *
      * @return mixed
      */
     public function register(Container $container)
@@ -34,7 +32,7 @@ class EventServiceProvider implements ServiceProviderInterface
 
     protected function registerConfig()
     {
-        $file = app()->getPath().'/config/event.php';
+        $file = app()->getPath() . '/config/event.php';
         config()->merge([
             'event' => file_exists($file) ? load($file) : [],
         ]);

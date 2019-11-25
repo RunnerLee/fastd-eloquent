@@ -7,9 +7,9 @@
 
 namespace Runner\FastdEloquent;
 
-use RuntimeException;
 use FastD\Http\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException as IlluminateModelNotFoundException;
+use RuntimeException;
 
 class ModelNotFoundException extends RuntimeException
 {

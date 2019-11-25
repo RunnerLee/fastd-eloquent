@@ -10,13 +10,12 @@ namespace Runner\FastdEloquent;
 use FastD\Container\Container;
 use FastD\Container\ServiceProviderInterface;
 use Illuminate\Database\Capsule\Manager;
+use Illuminate\Database\Connection;
 use Illuminate\Pagination\Paginator;
 
 class EloquentServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @param Container $container
-     *
      * @return mixed
      */
     public function register(Container $container)
@@ -24,11 +23,12 @@ class EloquentServiceProvider implements ServiceProviderInterface
         $this->registerEloquent($container);
 
         $this->registerMiddleware($container);
+
+        Connection::resolverFor('mysql', function (...$parameters) {
+            return new MysqlConnection(...$parameters);
+        });
     }
 
-    /**
-     * @param Container $container
-     */
     protected function registerEloquent(Container $container)
     {
         $this->registerConnections($manager = new Manager());
@@ -40,17 +40,11 @@ class EloquentServiceProvider implements ServiceProviderInterface
         $container->add('eloquent', $manager);
     }
 
-    /**
-     * @param Container $container
-     */
     protected function registerMiddleware(Container $container)
     {
         $container->get('dispatcher')->after(new EloquentMiddleware());
     }
 
-    /**
-     * @param Manager $manager
-     */
     protected function registerConnections(Manager $manager)
     {
         $manager->getDatabaseManager()->setDefaultConnection('default');

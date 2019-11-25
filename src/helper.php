@@ -23,8 +23,7 @@ if (!function_exists('eloquent_db')) {
 
 if (!function_exists('eloquent')) {
     /**
-     * @param Arrayable $resource
-     * @param int       $statusCode
+     * @param int $statusCode
      *
      * @return JsonResponse
      */

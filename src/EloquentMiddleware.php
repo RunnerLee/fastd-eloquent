@@ -12,16 +12,13 @@ use FastD\Http\JsonResponse;
 use FastD\Http\Response;
 use FastD\Middleware\DelegateInterface;
 use FastD\Middleware\Middleware;
+use Illuminate\Database\Eloquent\ModelNotFoundException as IlluminateModelNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Illuminate\Database\Eloquent\ModelNotFoundException as IlluminateModelNotFoundException;
 
 class EloquentMiddleware extends Middleware
 {
     /**
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $next
-     *
      * @return ResponseInterface
      *
      * @throws Exception
