@@ -16,6 +16,9 @@ class MysqlConnection extends Connection
 {
     protected $lastUseTime = 0;
 
+    /**
+     * {@inheritdoc}
+     */
     public function __construct($pdo, $database = '', $tablePrefix = '', array $config = [])
     {
         parent::__construct($pdo, $database, $tablePrefix, $config);
@@ -23,6 +26,9 @@ class MysqlConnection extends Connection
         $this->lastUseTime = microtime(true);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function logQuery($query, $bindings, $time = null)
     {
         $this->lastUseTime = microtime(true);
@@ -53,6 +59,9 @@ class MysqlConnection extends Connection
         }
     }
 
+    /**
+     * @return bool
+     */
     protected function causedByBrokenPipe(PDOException $exception)
     {
         if (false === strpos($exception->getMessage(), 'errno=32 Broken pipe')) {
