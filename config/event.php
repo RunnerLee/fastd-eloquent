@@ -5,6 +5,6 @@
  * @time: 2018-06
  */
 return [
-    'listen' => [],
+    'listen'   => [],
     'observer' => [],
 ];

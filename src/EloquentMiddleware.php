@@ -19,9 +19,9 @@ use Psr\Http\Message\ServerRequestInterface;
 class EloquentMiddleware extends Middleware
 {
     /**
-     * @return ResponseInterface
-     *
      * @throws Exception
+     *
+     * @return ResponseInterface
      */
     public function handle(ServerRequestInterface $request, DelegateInterface $next)
     {
