@@ -32,7 +32,7 @@ class EventServiceProvider implements ServiceProviderInterface
 
     protected function registerConfig()
     {
-        $file = app()->getPath() . '/config/event.php';
+        $file = app()->getPath().'/config/event.php';
         config()->merge([
             'event' => file_exists($file) ? load($file) : [],
         ]);

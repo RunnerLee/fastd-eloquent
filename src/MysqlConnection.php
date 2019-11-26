@@ -73,8 +73,8 @@ class MysqlConnection extends Connection
         exec($command, $output);
 
         logger()->error('bingo', [
-            'socket' => $output,
-            'pid' => $pid,
+            'socket'        => $output,
+            'pid'           => $pid,
             'last_use_time' => $this->lastUseTime,
         ]);
 
